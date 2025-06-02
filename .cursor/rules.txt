@@ -1,0 +1,112 @@
+RunPod Omniverse Server – Dockerized GPU Environment
+ 1. Overview
+ This project sets up a Docker-based development environment on RunPod servers with NVIDIA GPU support.
+ The goal is to provide a full desktop GUI via RDP and run NVIDIA Isaac Lab through Omniverse.
+ All software installs on container startup, using persistent storage at /workspace.
+ 2. Tech Stack- Docker (image based on nvidia/cuda:11.8.0-runtime-ubuntu22.04)- Ubuntu 22.04- XFCE desktop environment- XRDP for remote desktop- NVIDIA Omniverse + Isaac Lab- Git, Python3, sudo, curl, wget
+ 3. Persistent Storage Logic- Root filesystem is non-persistent (container is ephemeral).- Persistent storage is available at /workspace.- Omniverse should install or mount to /workspace/omniverse if not found.- Bootstrap logic checks for existing installs to avoid reinstalling.
+ 4. Dockerfile Summary- Installs xfce4, xrdp, xorgxrdp, and required tools.- Adds a default user (docker:dockerpass) with sudo rights.- Sets up .xsession and enables XRDP.- Copies omniverse_installer.sh and runpod-bootstrap.sh to /opt.- Exposes port 3389 for RDP access.- Uses runpod-bootstrap.sh as the default CMD.
+ 5. RDP Access Instructions- Once server is running, find the public IP or domain provided by RunPod.- Use Microsoft Remote Desktop (Mac) or Remote Desktop Connection (Windows).- Connect using:
+    Host: <RunPod IP>
+    User: docker
+    Pass: dockerpass- Desktop session will open in XFCE environment.
+ 6. File Layout
+ /workspace
+ omniverse-docker/
+ Dockerfile
+ omniverse_installer.sh
+ runpod-bootstrap.sh
+ README.md- Docker image includes and runs everything at boot
+ 7. AI Assistant Guidelines
+- ALWAYS follow the file layout and tech stack specified above.
+- NEVER modify the persistent storage logic without explicit instruction.
+- STRICTLY adhere to the Dockerfile specifications when making changes.
+- DO NOT install software outside the tech stack without user approval.
+- MAINTAIN the RDP configuration as described above.
+- PRESERVE the omniverse installation in /workspace/omniverse.
+- ENSURE all scripts are executable and follow proper bash syntax.
+- VERIFY compatibility with NVIDIA GPU environment before suggesting changes.
+- PRIORITIZE container stability and persistence logic in all modifications.
+- TEST all suggested changes against the rules before proposing them.
+- RESPECT the ephemeral nature of the container's root filesystem.
+
+8. Python Application Development Standards
+- ALL Python applications MUST follow this directory structure:
+  modules/
+  ├── app_name/                  # Main application directory
+  │   ├── src/                   # Source code directory
+  │   │   ├── __init__.py       # Makes the directory a Python package
+  │   │   ├── main.py           # Main application code
+  │   │   └── utils/            # Utility functions
+  │   │       ├── __init__.py
+  │   │       └── helpers.py
+  │   │
+  │   ├── tests/                # Test directory
+  │   │   ├── __init__.py
+  │   │   └── test_main.py
+  │   │
+  │   ├── docs/                 # Documentation
+  │   │   └── api.md
+  │   │
+  │   ├── examples/             # Example usage
+  │   │   └── basic_usage.py
+  │   │
+  │   ├── .gitignore           # Git ignore rules
+  │   ├── README.md            # Project documentation
+  │   ├── requirements.txt     # Project dependencies
+  │   └── setup.py             # Package installation script
+  │
+  └── venv/                     # Virtual environment (not in git)
+
+✅ Python Application Requirements (with venv detail added)
+ALWAYS use virtual environments (venv) for each application
+
+MUST ensure each module installs its dependencies into the correct venv/ associated with that module
+
+MUST install all Python dependencies into the lib/pythonX.Y/site-packages/ directory inside the venv/
+
+MUST NOT install dependencies globally or outside the project directory
+
+MUST include a setup.py for package installation
+
+MUST include a comprehensive README.md
+
+MUST include example usage in the examples/ directory
+
+MUST include proper documentation in docs/
+
+MUST include unit tests in tests/
+
+MUST use type hints in Python code
+
+MUST follow PEP 8 style guide
+
+MUST include proper docstrings for all functions and classes
+
+MUST include a .gitignore file that excludes venv/ and pycache/
+
+MUST use relative imports within the package
+
+MUST include version information in init.py
+
+MUST handle dependencies in requirements.txt
+
+MUST include proper error handling and input validation
+
+MUST include logging for important operations
+
+MUST be installable via pip (setup.py)
+
+MUST include proper exception handling
+
+MUST validate all inputs
+
+MUST be properly documented
+
+MUST include example usage
+
+MUST include unit tests
+
+MUST follow Python best practices
+
+9. Do not commit to git hub without my permission
