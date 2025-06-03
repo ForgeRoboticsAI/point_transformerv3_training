@@ -1,0 +1,67 @@
+# ────────────────────────────────────────────────
+# .cursorignore ‑ exclude heavy / non‑source assets
+# Used by Cursor AI indexer to skip files & dirs
+# ────────────────────────────────────────────────
+
+# ↓ Version control/admin ↓
+.git/
+.cursor/
+
+# ↓ Virtual / Conda envs ↓
+.venv/
+venv/
+env/
+ENV/
+miniconda3/
+
+# ↓ Build artefacts ↓
+__pycache__/
+*.py[cod]
+*.so
+
+# ↓ Training outputs & checkpoints ↓
+exp/
+work_dirs/
+logs/
+pretrained/
+*.pth
+*.ckpt
+*.pt
+
+# ↓ Raw / processed data ↓
+data/
+*.npy
+*.npz
+*.ply
+*.pcd
+*.las
+*.laz
+
+# ↓ Large misc assets ↓
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.mp4
+*.avi
+*.mkv
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# ↓ Installers ↓
+Miniconda3-latest-*.sh
+
+# ↓ OS cruft ↓
+.DS_Store
+Thumbs.db
+
+# Keep: source code & configs
+!**/*.py
+!Pointcept/**
+!configs/**
+
